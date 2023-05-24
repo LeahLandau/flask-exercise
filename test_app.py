@@ -20,13 +20,16 @@ def test_get_users(client):
     res = client.get("/users")
     assert res.status_code == 200
     res_users = res.json["result"]["users"]
+    assert len(res_users) == 4
     assert res_users[0]["name"] == "Aria"
+    
 
 
 def tests_get_users_with_team(client):
     res = client.get("/users?team=LWB")
     assert res.status_code == 200
     res_users = res.json["result"]["users"]
+    assert len(res_users) == 2
     assert res_users[1]["name"] == "Tim"
 
 

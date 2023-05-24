@@ -86,7 +86,6 @@ def addUser():
         )
         if not bool(state):
             req = {"newUser": db.create("users", request.get_json())}
-            db.updateUsersData()
             return create_response(req, 201)
     return create_response(
         None,
@@ -102,7 +101,6 @@ def updateUser(id):
     data = request.get_json()
     req = {"user": db.updateById("users", id, data)}
     if req["user"]:
-        db.updateUsersData()
         return create_response(req)
     return create_response(None, 404, "id:{id} is not exist".format(id=id))
 
@@ -111,7 +109,6 @@ def updateUser(id):
 def deleteUser(id):
     if db.getById("users", id):
         data = {"users": db.deleteById("users", id)}
-        db.updateUsersData()
         return create_response(
             None, 200, "The user with id:{id} was deleted".format(id=id)
         )
